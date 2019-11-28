@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 데이터베이스 접속 정보 -->
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@192.168.0.240:1521:xe" />
+		<property name="username" value="user09" />
+		<property name="password" value="user09" />
+	</bean>
+
+	<!-- SqlSessionFactoryBean 객체 생성 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- DataSource 지정 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 환경 설정 파일 경로 지정 -->
+		<property name="configLocation"
+			value="classpath:mybatis-config.xml" />
+		<!-- 매퍼 파일 경로 지정 -->
+		<property name="mapperLocations"
+			value="classpath:mappers/itemmapper.xml" />
+	</bean>
+
+	<!-- MyBatis 연동 객체 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- xml과 annotation 설정을 모두 사용하기 위한 태그 -->
+	<context:annotation-config />
+	<!-- 객체 자동 생성 -->
+	<context:component-scan base-package="dao" />
+
+
+
+
+
+
+</beans>
