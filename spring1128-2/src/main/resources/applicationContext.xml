@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 데이터베이스 접속 정보 -->
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@192.168.0.240:1521:xe" />
+		<property name="username" value="user09" />
+		<property name="password" value="user09" />
+	</bean>
+	
+	<!-- 스프링 설정 파일에서 어노테이션을 사용하기 위한 설정 -->
+	<context:annotation-config/>
+	
+	<!-- MyBatis 사용 객체 만들기 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+	id="sqlSessionFactory">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+		value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations"
+		value="classpath:mybatis/mappers/member.xml" />
+	</bean>
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+		ref="sqlSessionFactory" />
+	
+	
+	<!--annotation이 붙은 클래스의 객체를 자동 생성하는 패키지를 등록 -->
+	<context:component-scan base-package="kakao.neo"/>
+	
+	</bean>
+	
+</beans>
