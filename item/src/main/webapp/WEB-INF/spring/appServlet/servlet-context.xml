@@ -3,12 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
  
- 
- 
+  
  
 	<!-- Controller가 처리하지 못하는 요청은 WAS가 처리하도록 설정
 	필수 설정 내용 -->
@@ -33,6 +34,26 @@
 	<!-- 어노테이션이 붙은 클래스의 객체를 자동으로 생성해주는 패키지를 설정 -->
 	<context:component-scan base-package="kakao.neo.item" />
 	
+<!-- 트랜잭션을 어노테이션으로 사용할 수 잇도록 해주는 설정 -->
+	<tx:annotation-driven />
+	<!-- 트랜잭션 매니저를 생성 -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<beans:property name="sessionFactory"
+			ref="sessionFactory" />
+	</beans:bean>
 	
 	
-</beans:beans>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</beans:beans>

@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kakao.neo.item.domain.Item;
+import kakao.neo.item.domain.dao.GoodMapper;
 import kakao.neo.item.domain.dao.ItemDao;
+import kakao.neo.item.domain.dao.ItemHibernateDao;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 	@Autowired
-	private ItemDao itemDao;
-
+	//private ItemDao itemDao;
+	//private GoodMapper itemDao;
+	private ItemHibernateDao itemDao;
+	@Transactional
 	@Override
 	public List<Item> allItem() {
 		//파라미터 읽기
@@ -26,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
 		//리턴
 		return itemDao.allItem();
 	}
-
+	@Transactional
 	@Override
 	public Item getItem(int itemid) {
 		

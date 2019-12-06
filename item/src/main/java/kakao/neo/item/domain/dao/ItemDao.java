@@ -17,6 +17,7 @@ public class ItemDao {
 	//여러 개의 행이 나오는 경우 List<resultType>
 	//selectList를 호출하고 sql의 id  그리고 파라미터를 대입
 	public List<Item> allItem(){
+		
 		return sqlSession.selectList("item.allitem");
 	}
 	
