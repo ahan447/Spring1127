@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+
+	<!-- 데이터베이스 접속을 위한 정보 설정 -->
+	<bean
+
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="dataSource">
+
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property
+			value="jdbc:log4jdbc:oracle:thin:@192.168.0.240:1521:xe" name="url" />
+		<property value="user09" name="username" />
+		<property value="user09" name="password" />
+
+	</bean>
+</beans>
