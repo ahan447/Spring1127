@@ -51,7 +51,7 @@ padding-left:5px;
 				<li role="presentation" class="active"><a href="#">메인</a></li>
 				<li role="presentation"><a href="#">목록보기 </a></li>
 				<li role="presentation"><a href="#">게시물 쓰기 </a></li>
-				<li role="presentation"><a href="#">회원가입 </a></li>
+				<li role="presentation"><a href="/user/join">회원가입 </a></li>
 
 			</ul>
 

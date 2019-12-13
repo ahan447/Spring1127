@@ -6,7 +6,7 @@
 <section class="content">
 	<div class="box">
 		<div class="box-header with-border">
-			<a href="#"><h3 class='box-title'>회원가입</h3></a>		
+			<a href="user/join"><h3 class='box-title'>회원가입</h3></a>		
 		</div>
 	</div>
 </section>
