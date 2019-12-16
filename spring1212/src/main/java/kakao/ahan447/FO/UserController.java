@@ -1,6 +1,7 @@
 package kakao.ahan447.FO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,16 @@ public class UserController {
 			
 			
 		}
+	}
+	
+	@RequestMapping(value="user/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session ,RedirectAttributes attr) {
+		//로그아웃 처리 - 세션을 초기화해도 되고 세션에서 user만 초기화해도 됨
+		
+		//session.invalidate();
+		session.removeAttribute("user");
+		attr.addFlashAttribute("msg", "로그아웃 완료");
+		return "redirect:/";
 	}
 	
 	

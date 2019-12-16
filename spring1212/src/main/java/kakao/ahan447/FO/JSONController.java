@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import kakao.ahan447.FO.domain.SpringUser;
+import kakao.ahan447.FO.service.SpringUserMobileService;
 import kakao.ahan447.FO.service.SpringUserService;
 
 @RestController
@@ -51,6 +53,25 @@ public class JSONController {
 			//result에 true가 저장
 			return map;
 		}
+	@Autowired
+	private SpringUserMobileService springUserMobileService;
+	@RequestMapping(
+			value="user/mobilelogin", method=RequestMethod.GET)
+	public Map<String, Object> mobileLogin(
+			HttpServletRequest request){
+		//리턴할 Map 만들기
+		Map<String, Object>map=
+				new HashMap<String , Object>();
+		//서비스 메소드 호출
+		SpringUser user = springUserMobileService.login(request);
+		if(user ==null) {
+			map.put("result", "fail");
+			}else{
+				map.put("result", "success");
+				map.put("user",user);
+			}
+		return map;
+	}
 	
 			
 			

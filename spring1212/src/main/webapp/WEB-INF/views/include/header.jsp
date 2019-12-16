@@ -29,6 +29,9 @@
 * {
 	padding-left: 5px;
 }
+img{
+padding:0px;
+}
 </style>
 </head>
 

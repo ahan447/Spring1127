@@ -55,4 +55,12 @@
 		<location>/WEB-INF/views/error/404error.jsp</location>
 	</error-page>
 	
+	<!-- 세션 만료시간 설정 -->
+	<session-config>
+		<session-timeout>5</session-timeout>	
+	</session-config>
+	
+	
+	
 </web-app>
+ 

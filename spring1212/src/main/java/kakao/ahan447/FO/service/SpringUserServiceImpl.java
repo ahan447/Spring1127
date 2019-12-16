@@ -54,7 +54,7 @@ public class SpringUserServiceImpl implements SpringUserService {
 		String nickname = request.getParameter("nickname");
 
 		String phone = request.getParameter("phone");
-		// 체크박스의 값 가져와서 하느이 문자열 만들기
+		// 체크박스의 값 가져와서 하나의 문자열 만들기
 		String[] hobbies = request.getParameterValues("hobby");
 		// 각각의 만자열에 ,를 추가
 		String hobby = "";
@@ -74,7 +74,7 @@ public class SpringUserServiceImpl implements SpringUserService {
 
 		// 저장할 디렉토리 이름 만들기
 		// 프로젝트 내의 경로
-		// 실행하기 전에 프로젝트 내의 webapp(WebCOntent) 안에 디렉토리를 생성
+		// 실행하기 전에 프로젝트 내의 webapp(WebContent) 안에 디렉토리를 생성
 		String path = request.getServletContext().getRealPath("/userimage");
 		// 업로드하는 파일이 있으면 저장하고 그렇지 않으면 default.png 사용
 		if (originName.length() > 0) {
