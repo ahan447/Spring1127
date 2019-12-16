@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<!-- jstl 의 core 기능 사용을 위한 태그 라이브러리 설정 -->
+<!-- jstl 의 core 기능 사용을 위한 태그 라이브러리 설정 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,7 @@
 <!-- 부트스트랩 적용을 위한 css 설정 -->
 <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
-<!-- IE9 버전 이하의 브라우저에서 HTML5를 적용하기 위한 설정 -->	
+<!-- IE9 버전 이하의 브라우저에서 HTML5를 적용하기 위한 설정 -->
 <!--[if lt IE 9]>
 
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -26,11 +26,9 @@
 <![endif]-->
 
 <style>
-*{
-padding-left:5px;
+* {
+	padding-left: 5px;
 }
-
-
 </style>
 </head>
 
@@ -48,10 +46,21 @@ padding-left:5px;
 	<aside class="main-sidebar">
 		<section class="sidebar">
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="active"><a href="#">메인</a></li>
+				<li role="presentation" class="active"><a href="/">메인</a></li>
 				<li role="presentation"><a href="#">목록보기 </a></li>
 				<li role="presentation"><a href="#">게시물 쓰기 </a></li>
-				<li role="presentation"><a href="/user/join">회원가입 </a></li>
+				<!-- 로그인이 안된 경우 -->
+				<c:if test="${user == null}">
+					<li role="presentation"><a href="/user/join">회원가입 </a></li>
+				</c:if>
+				<!-- 로그인이 된 경우 -->
+				<c:if test="${user != null}">
+					<li role="presentation"><span class="badge"> <img
+							src="/userimage/${user.image}" width="20" height=20 "/>
+					</span> <a href="#">${user.nickname }님 환영합니다 </a></li>
+				</c:if>
+
+
 
 			</ul>
 

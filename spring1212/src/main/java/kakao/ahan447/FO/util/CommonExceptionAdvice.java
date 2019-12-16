@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class CommonExceptionAdvice {
 	@ExceptionHandler(Exception.class)
 	public String errorPage(Model model) {
+		//예외 찾기
+		//model.addAttribute("error", e.getMessage());
 		//error 디렉토리에 error.jsp 파일을 에러 페이지로 설정
 		return "/error/error";
 	}

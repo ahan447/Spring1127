@@ -20,4 +20,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from springuser
 		where nickname = #{nickname}
 	</select>
+	
+	<!-- 회원가입 처리를 위한 SQL : 삽입 -->
+	<insert id="join" parameterType="SpringUser">
+		insert into springuser(email,pw,name,nickname,image,phone,hobby)
+		values(#{email},#{pw},#{name},#{nickname},#{image},#{phone},#{hobby})
+	
+	</insert>
+	
+	<!-- springuser 테이블에서 email을 가지고 모든 정보를 찾아오는 SQL -->
+	<select id="login" parameterType="java.lang.String" resultType="SpringUser">
+	select *
+	from springuser
+	where email=#{email}	
+	</select>
+	
+	
 </mapper>
