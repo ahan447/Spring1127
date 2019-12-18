@@ -1,5 +1,7 @@
 package kakao.ahan447.FO.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,6 +25,8 @@ public interface SpringUserService {
 	//로그인 처리 메소드
 	public boolean login(HttpServletRequest request);
 	
+	//위도와 경도를 받아서 주소를 리턴해주는 메소드
+	public Map<String ,Object>address(HttpServletRequest request);
 }
 
 

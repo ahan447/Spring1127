@@ -8,8 +8,6 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- -->
-
 	<!-- spring mvc project의 기본 설정을 해주는 태그 -->
 	<annotation-driven />
 

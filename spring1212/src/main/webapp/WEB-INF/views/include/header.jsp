@@ -50,17 +50,19 @@ padding:0px;
 		<section class="sidebar">
 			<ul class="nav nav-tabs">
 				<li role="presentation" class="active"><a href="/">메인</a></li>
-				<li role="presentation"><a href="#">목록보기 </a></li>
-				<li role="presentation"><a href="#">게시물 쓰기 </a></li>
+				<li role="presentation"><a href="/board/list">목록보기 </a></li>
+				
 				<!-- 로그인이 안된 경우 -->
 				<c:if test="${user == null}">
 					<li role="presentation"><a href="/user/join">회원가입 </a></li>
 				</c:if>
 				<!-- 로그인이 된 경우 -->
 				<c:if test="${user != null}">
+				<li role="presentation"><a href="/board/write">게시물 쓰기 </a></li>
 					<li role="presentation"><span class="badge"> <img
 							src="/userimage/${user.image}" width="20" height=20 "/>
 					</span> <a href="#">${user.nickname }님 환영합니다 </a></li>
+					
 				</c:if>
 
 

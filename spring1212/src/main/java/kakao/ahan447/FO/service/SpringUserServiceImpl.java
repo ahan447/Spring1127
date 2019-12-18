@@ -1,9 +1,17 @@
 package kakao.ahan447.FO.service;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,16 +93,15 @@ public class SpringUserServiceImpl implements SpringUserService {
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 			}
-		}else {
+		} else {
 			filename = "default.png";
 		}
-		
-		
+
 		// DAO 메소드 호출
 		SpringUser user = new SpringUser();
 		user.setEmail(email);
-		//암호화해서 저장하기
-		user.setPw(BCrypt.hashpw(pw,BCrypt.gensalt(10)));
+		// 암호화해서 저장하기
+		user.setPw(BCrypt.hashpw(pw, BCrypt.gensalt(10)));
 		user.setName(name);
 		user.setNickname(nickname);
 		user.setPhone(phone);
@@ -108,30 +115,92 @@ public class SpringUserServiceImpl implements SpringUserService {
 	@Override
 	public boolean login(HttpServletRequest request) {
 		boolean result = false;
-		
-		//파라미터 읽기
+
+		// 파라미터 읽기
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
-		
-		//세션에서 로그인 정보를 가진 키의 값을 삭제
+
+		// 세션에서 로그인 정보를 가진 키의 값을 삭제
 		request.getSession().removeAttribute("user");
-		
-		//email을 가지고 데이터를 가져오기
+
+		// email을 가지고 데이터를 가져오기
 		SpringUser user = springUserDao.login(email);
-		//email에 해당하는 데이터가 존재한다면
-		if(user != null) {
-			//비밀번호 비교
-			if(BCrypt.checkpw(pw, user.getPw())) {
-				//session의 user에 사용자 정보 저장
+		// email에 해당하는 데이터가 존재한다면
+		if (user != null) {
+			// 비밀번호 비교
+			if (BCrypt.checkpw(pw, user.getPw())) {
+				// session의 user에 사용자 정보 저장
 				user.setPw(null);
-				request.getSession().setAttribute("user",user);
-				//로그인 성공
+				request.getSession().setAttribute("user", user);
+				// 로그인 성공
 				result = true;
 			}
-			
+
 		}
-		
+
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> address(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 파라미터 읽어오기
+		String longitude = request.getParameter("longitude");
+		String latitude = request.getParameter("latitude");
+
+		//파라미터 확인
+		//System.out.println(longitude);
+		//System.out.println(latitude);
+		// 다운로드 받을 URL을 생성
+		String addr = "https://dapi.kakao.com/v2/local/geo/coord2address.json?x=" + longitude + "&y=" + latitude
+				+ "&input_coord=WGS84";
+		
+
+		// 위의 주소에서 문자열을 다운로드 받기
+		try {
+			URL url = new URL(addr);
+			HttpURLConnection con =
+					(HttpURLConnection)url.openConnection();
+			//옵션 설정
+			con.setUseCaches(false);
+			con.setConnectTimeout(100000);
+			//헤더 설정
+			con.addRequestProperty(
+					"Authorization",
+					"KakaoAK 4deca854839921d422d6a1a27a62b170");
+			//문자열 다운로드
+			StringBuilder sb = new StringBuilder();
+			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
+			while(true) {
+				String line = br.readLine();
+				if(line == null)
+					break;
+				sb.append(line + "\n");
+			}
+				br.close();
+				con.disconnect();
+				
+				String json = sb.toString();
+				//json 파싱
+				//JSONArray ar = obj.getSJPNArray("documents");
+				//for(int i=0; i<ar.lenth(); I=I*1) {
+					
+				//}
+				//첫번째 데이터만 가져오기
+				JSONObject obj = new JSONObject(json);
+				JSONArray ar = obj.getJSONArray("documents");
+				
+				JSONObject item = ar.getJSONObject(0);
+				
+				JSONObject road = item.getJSONObject("address");
+				String address = road.getString("address_name");
+				
+				//map에 저장
+				map.put("address", address);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return map;
+	}
 }
